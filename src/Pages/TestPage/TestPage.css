@@ -1,0 +1,56 @@
+.qn-container {
+  height: 100vh;
+  background-color: #161520;
+  overflow: scroll;
+}
+.qn-container .qn-box {
+  padding: 40px;
+}
+.qn-container .qn-box h1 {
+  width: 80%;
+  margin-top: 20px;
+}
+.qn-container p {
+  font-size: 30px;
+  height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.qn-container .option-container {
+  width: 50%;
+  display: grid;
+  grid-template-columns: 2fr 2fr;
+  margin-top: 20px;
+}
+.qn-container .option-container .option-box {
+  flex-basis: 100%;
+  margin: 5px;
+  background-color: #2a293d;
+  border-radius: 20px;
+}
+.qn-container .option-container .option-box h3 {
+  margin: 20px;
+}
+.qn-container .option-container .option-box:hover {
+  background-color: #3b3a54;
+}
+.qn-container .submit-btn {
+  position: absolute;
+  right: 20px;
+  bottom: 40px;
+  background-color: aqua;
+}
+.qn-container .submit-btn a {
+  width: -moz-max-content;
+  width: max-content;
+  background-color: rgb(11, 125, 76);
+  padding: 10px 30px;
+  color: white;
+  border-radius: 12px;
+  margin-top: 20px;
+}
+
+.active {
+  background-color: rgb(11, 125, 76) !important;
+}/*# sourceMappingURL=TestPage.css.map */
