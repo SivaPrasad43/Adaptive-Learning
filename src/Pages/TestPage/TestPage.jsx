@@ -13,15 +13,17 @@ const TestPage = () => {
                 const result = await axios.get(
                     "https://opensheet.elk.sh/1Bb2QOpmm3PualZY_SFQkeV6uy6EKM1tRDRFySWEe130/Sheet1"
                 );
-                setData(result.data[Math.floor(Math.random() * 50)]);
+                setData(result.data);
+                setLoading(false)
             } catch (e) {
                 console.log(e);
-            } finally {
-                setLoading(false);
             }
         };
         fetchData();
     }, []);
+
+    console.log("data is: ",data)
+
 
     return (
             <>
@@ -30,7 +32,8 @@ const TestPage = () => {
                     <div className="qn-box">
                         {loading ? 
                         (<Loading value={"Loading..."}/>) 
-                        : data ? <QuestionBox data={data}/>
+                        : data ?
+                        <QuestionBox data={data}/>
                         : (<Loading value={"Sry, Data not available."}/>)}
                     </div>
                 </div>
@@ -49,58 +52,68 @@ const Loading = ({value})=>{
 const QuestionBox = ({data}) =>{
     const [userOption,setUserOption] = useState(null)
     const [active,setActive] = useState('')
+    const [question,setQuestion] = useState([])
+
+    useEffect(()=>{
+        return(
+            generateRandomQuestion()
+        )
+    },[])
+
+    const generateRandomQuestion = () => {
+        const randIndex  = Math.floor(Math.random() * data.length);
+        console.log("random index: ",randIndex)
+        setQuestion(data[randIndex])
+    }
+
+    const handleOptionClick = (option) => {
+        setUserOption(question[option]);
+        setActive(option);
+        console.log(option);
+      };
+    
+      const handleSubmitClick = (e) => {
+        e.preventDefault();
+        setUserOption(null);
+        setActive("");
+        generateRandomQuestion()
+        console.log("user option",userOption)
+      };
+
     return(
-            <>
-                <h3>Question #{data.qid}</h3>
-                <h1>{data.question}</h1>
-                <div className="option-container">
-                    <div 
-                        className={`option-box ${active==='a'? "active":null}`}
-                        onClick={() => {
-                            setUserOption(data.a)
-                            setActive('a')
-                            console.log(data.a)
-                        }}>
-                        <h3>{data.a}</h3>
-                    </div>
-                    <div 
-                        className={`option-box ${active==='b'? "active":null}`}
-                        onClick={() => {
-                            setUserOption(data.b)
-                            setActive('b')
-                            console.log(data.b)
-                        }}>
-                        <h3>
-                            {data.b}
-                        </h3>
-                    </div>
-                    <div 
-                        className={`option-box ${active==='c'? "active":null}`}
-                        onClick={() => {
-                            setUserOption(data.c)
-                            setActive('c')
-                            console.log(data.c)
-                        }}>
-                        <h3>
-                            {data.c}
-                        </h3>
-                    </div>
-                    <div 
-                        className={`option-box ${active==='d'? "active":null}`}
-                        onClick={() => {
-                            setUserOption(data.d)
-                            setActive('d')
-                            console.log(data.d)
-                        }}>
-                        <h3>
-                            {data.d}
-                        </h3>
-                    </div>
-                </div>
-                <div className="submit-btn btn">
-                    <a href="#">Submit</a>
-                </div>
-            </>
-            )
+        <form onSubmit={handleSubmitClick}>
+        <h3>Question #{question.qid}</h3>
+        <h1>{question.question}</h1>
+        <div className="option-container">
+          <div
+            className={`option-box ${active === "a" ? "active" : null}`}
+            onClick={() => handleOptionClick("a")}
+          >
+            <h3>{question.a}</h3>
+          </div>
+          <div
+            className={`option-box ${active === "b" ? "active" : null}`}
+            onClick={() => handleOptionClick("b")}
+          >
+            <h3>{question.b}</h3>
+          </div>
+          <div
+            className={`option-box ${active === "c" ? "active" : null}`}
+            onClick={() => handleOptionClick("c")}
+          >
+            <h3>{question.c}</h3>
+          </div>
+          <div
+            className={`option-box ${active === "d" ? "active" : null}`}
+            onClick={() => handleOptionClick("d")}
+          >
+            <h3>{question.d}</h3>
+          </div>
+        </div>
+        <div className="submit-btn btn">
+          <button type="submit">Submit</button>
+        </div>
+      </form>
+     )
 }
 export default TestPage;

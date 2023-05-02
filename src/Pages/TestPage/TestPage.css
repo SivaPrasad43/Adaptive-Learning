@@ -35,20 +35,25 @@
 .qn-container .option-container .option-box:hover {
   background-color: #3b3a54;
 }
-.qn-container .submit-btn {
+
+.submit-btn {
   position: absolute;
   right: 20px;
   bottom: 40px;
-  background-color: aqua;
 }
-.qn-container .submit-btn a {
+.submit-btn button {
   width: -moz-max-content;
   width: max-content;
   background-color: rgb(11, 125, 76);
   padding: 10px 30px;
   color: white;
-  border-radius: 12px;
+  border-radius: 8px;
   margin-top: 20px;
+  outline: none;
+  border: none;
+}
+.submit-btn button:hover {
+  background-color: rgb(28, 150, 97);
 }
 
 .active {
