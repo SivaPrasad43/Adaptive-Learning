@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import Navbar from "../../Components/res/Navbar/Navbar";
 import "./TestPage.css";
 import axios from "axios";
+import { LoginContext } from "../../Context/Auth";
 
 const TestPage = () => {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
+
+    const {username} = useContext(LoginContext)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -29,6 +32,7 @@ const TestPage = () => {
             <>
                 <Navbar />
                 <div className="qn-container">
+                    <h3>Username: {username} </h3>
                     <div className="qn-box">
                         {loading ? 
                         (<Loading value={"Loading..."}/>) 
@@ -58,6 +62,7 @@ const QuestionBox = ({data}) =>{
         return(
             generateRandomQuestion()
         )
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
     const generateRandomQuestion = () => {

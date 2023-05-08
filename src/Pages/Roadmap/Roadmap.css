@@ -1,0 +1,68 @@
+.road-container {
+  height: 100vh;
+  background-color: #161520;
+  box-sizing: border-box;
+  display: flex;
+}
+
+.roadmap {
+  width: 60%;
+  height: 100vh;
+  background-color: gray;
+  overflow: scroll;
+}
+
+.topic-container {
+  background-color: rgb(7, 93, 25);
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.topic-container .topic-num {
+  background-color: rgb(118, 214, 138);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50px;
+  position: relative;
+  z-index: 5;
+}
+.topic-container .topic-num h3 {
+  color: rgb(7, 93, 25);
+}
+.topic-container .topic-name {
+  width: 70%;
+  margin-left: 10px;
+  font-size: 22px;
+}
+
+.topic-container:hover {
+  background-color: rgb(32, 107, 48);
+}
+
+.disc {
+  background-color: #161520;
+  width: 40%;
+  padding: 20px;
+}
+.disc .disc-item .youtube {
+  margin-top: 20px;
+}
+
+.status-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+.status-container .complt-btn {
+  width: -moz-max-content;
+  width: max-content;
+  padding: 10px 40px;
+  background-color: gray;
+  color: black;
+  border-radius: 8px;
+  cursor: pointer;
+}/*# sourceMappingURL=Roadmap.css.map */
