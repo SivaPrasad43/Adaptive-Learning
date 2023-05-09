@@ -15,9 +15,10 @@ const TestPage = () => {
         const fetchData = async () => {
             try {
                 const result = await axios.get(
-                    "https://opensheet.elk.sh/1Bb2QOpmm3PualZY_SFQkeV6uy6EKM1tRDRFySWEe130/Sheet1"
+                    // "https://opensheet.elk.sh/1Bb2QOpmm3PualZY_SFQkeV6uy6EKM1tRDRFySWEe130/Sheet1"
+                    "http://127.0.0.1:8000/api/v1/get-questions/"
                 );
-                setData(result.data);
+                setData(result.data.response);
                 setLoading(false)
             } catch (e) {
                 console.log(e);
@@ -25,8 +26,6 @@ const TestPage = () => {
         };
         fetchData();
     }, []);
-
-    console.log("data is: ",data)
 
     return (
             <>
@@ -65,10 +64,11 @@ const QuestionBox = ({data}) =>{
 
     const questionCountRef = useRef(1)
 
+    const startTimeRef = useRef(null);
+
     useEffect(()=>{
-        return(
             generateRandomQuestion()
-        )
+            startTimeRef.current = new Date()
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
@@ -92,10 +92,15 @@ const QuestionBox = ({data}) =>{
       const handleSubmitClick = (e) => {
         e.preventDefault();
 
+
+
         const answeredQuestion = {
-          questionId: question.qid,
+          questionId: question["Question ID"],
           answer: active,
+          timeTaken: (new Date() - startTimeRef.current) / 1000
         };
+
+        console.log(answeredQuestion)
 
         answeredQuestionsRef.current.push(answeredQuestion);
         setActive(null);
@@ -108,38 +113,38 @@ const QuestionBox = ({data}) =>{
         }
 
         questionCountRef.current += 1
-
+        startTimeRef.current = new Date();
       };
 
     return(
         <form onSubmit={handleSubmitClick}>
           <h3>Question #{questionCountRef.current}</h3>
-          <h3>Question Id #{question.qid}</h3>
-          <h1>{question.question}</h1>
+          <h3>Question Id #{question["Question ID"]}</h3>
+          <h1>{question["Question"]}</h1>
           <div className="option-container">
             <div
               className={`option-box ${active === "a" ? "active" : null}`}
               onClick={() => handleOptionClick("a")}
             >
-              <h3>{question.a}</h3>
+              <h3>{question["A"]}</h3>
             </div>
             <div
               className={`option-box ${active === "b" ? "active" : null}`}
               onClick={() => handleOptionClick("b")}
             >
-              <h3>{question.b}</h3>
+              <h3>{question["B"]}</h3>
             </div>
             <div
               className={`option-box ${active === "c" ? "active" : null}`}
               onClick={() => handleOptionClick("c")}
             >
-              <h3>{question.c}</h3>
+              <h3>{question["C"]}</h3>
             </div>
             <div
               className={`option-box ${active === "d" ? "active" : null}`}
               onClick={() => handleOptionClick("d")}
             >
-              <h3>{question.d}</h3>
+              <h3>{question["D"]}</h3>
             </div>
           </div>
           <div className="submit-btn btn">

@@ -51,7 +51,7 @@
     }
 }
 
-.status-container{
+.status-box-container{
     display: flex;
     justify-content: center;
     margin-top: 20px;
@@ -63,4 +63,14 @@
         border-radius: 8px;
         cursor: pointer;
     }
+}
+
+.finish-container{
+    height: 100vh;
+    width: 100%;
+    background-color: #161520;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center ;
 }
