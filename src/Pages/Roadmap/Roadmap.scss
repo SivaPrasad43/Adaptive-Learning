@@ -11,13 +11,13 @@
     overflow: scroll;
 }
 .topic-container{
-    background-color: rgb(7, 93, 25);
+    background-color: #2c2a38;
     padding: 20px;
     display: flex;
     align-items: center;
     position: relative;
     .topic-num{
-        background-color: rgb(118, 214, 138);
+        background-color: #726e8a;
         width: 40px;
         height: 40px;
         display: flex;
@@ -27,7 +27,7 @@
         position: relative;
         z-index: 5;
         h3{
-            color: rgb(7, 93, 25);
+            color: rgb(236, 242, 238);
         }
     }
     .topic-name{
@@ -37,7 +37,7 @@
     }
 }
 .topic-container:hover{
-    background-color: rgb(32, 107, 48);
+    background-color: #393550;
 }
 
 .disc{

@@ -1,7 +1,11 @@
 import React from 'react'
 import "./Result.css"
+import { useNavigate } from 'react-router-dom'
 
 function Result() {
+
+  const navigate = useNavigate()
+
   return (
     <div className='result-container'>
       <div className="status-container">
@@ -29,7 +33,11 @@ function Result() {
                 </div>
             </div>
         </div>
-        <div className="generate-btn">Generate Roadmap</div>
+        <div 
+          className="generate-btn"
+          onClick={()=>{
+            navigate("/roadmap")
+          }}>Generate Roadmap</div>
       </div>
     </div>
   )
