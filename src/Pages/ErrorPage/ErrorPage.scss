@@ -1,0 +1,17 @@
+.error_container{
+    height: 100vh;
+    background-color: #161520;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: center;
+    .button{
+        padding: 10px 40px;
+        border: 1px solid white;
+        border-radius: 8px;
+        margin-top: 20px;
+        cursor: pointer;
+    }
+}

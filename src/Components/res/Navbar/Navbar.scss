@@ -1,0 +1,37 @@
+.navbar-container{
+    width: 100%;
+    padding:  10px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    align-items: center;
+    border-bottom: 2px solid #504e68;
+    background-color: #161520;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    .navbar_shrink{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        .brand{
+            font-size: 30px;
+        }
+        .sub-info{
+            display: flex;
+            align-items: center;
+            p{
+                font-size: 17px;
+                margin-left: 6px;
+            }
+        }
+    }
+}
+.dash-btn{
+    background-color: #504e68;
+    padding: 3px 15px;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+}

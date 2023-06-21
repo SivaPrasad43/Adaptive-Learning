@@ -1,0 +1,43 @@
+.instrcutions_container{
+    height: 100vh;
+    background-color: #161520;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: center;
+}
+
+.instruction_box{
+    width: 550px;
+    text-align: center;
+    h3{
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    li{
+        margin-bottom: 10px;
+        text-align: left;
+    }
+
+    p{
+        font-size: 16px;
+        margin-left: 20px;
+        span{
+            font-weight: bold;
+        }
+    }
+
+    button{
+        width: 60%;
+        background-color: blue;
+        border: none;
+        outline: none;
+        padding: 10px;
+        border-radius: 12px;
+        margin-top: 20px;
+        font-size: 15px;
+    }
+}

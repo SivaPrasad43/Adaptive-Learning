@@ -1,29 +1,38 @@
 .result-container {
-  height: 100vh;
+  height: 91vh;
   background-color: #161520;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
 }
 
-.status-container {
-  width: 100%;
-  height: 70vh;
+.status-wrap {
+  display: flex;
+  height: 100vh;
+  padding-top: 100px;
+}
+.status-wrap .status-container {
+  width: 60%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  padding: 20px 40px;
+  overflow: scroll;
 }
-.status-container h1 {
-  font-size: 6rem;
+.status-wrap .status-container h1 {
+  font-size: 4rem;
   margin-bottom: 20px;
 }
-.status-container h3 {
+.status-wrap .status-container h3 {
   margin-bottom: 20px;
 }
-.status-container .level {
+.status-wrap .status-container .level {
   font-size: 3rem;
   color: orange;
+}
+.status-wrap .graph-container {
+  width: 40%;
+  padding-right: 5rem;
 }
 
 .agree-container {
@@ -31,8 +40,8 @@
   align-items: center;
   gap: 10px;
 }
-.agree-container h3 {
-  margin: 0;
+.agree-container h4 {
+  font-size: 20px;
 }
 .agree-container .agree-btn {
   padding: 8px 32px;
@@ -42,13 +51,17 @@
 }
 
 .score-container {
-  height: 30vh;
-  padding: 0 20px;
+  width: 100%;
+  padding: 10px 40px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 40px;
-  position: relative;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  box-sizing: border-box;
+  background-color: #161520;
 }
 .score-container .result-box-container {
   display: flex;
@@ -65,7 +78,6 @@
 .score-container .result-box-container .result-box .value-box {
   min-width: -moz-max-content;
   min-width: max-content;
-  height: 8rem;
   border: 2px solid white;
   display: flex;
   align-items: center;
@@ -73,8 +85,11 @@
   border-radius: 12px;
 }
 .score-container .result-box-container .result-box .value-box h1 {
-  font-size: 50px;
+  font-size: 30px;
   margin: 10px;
+}
+.score-container .result-box-container .result-box h3 {
+  font-size: 15px;
 }
 .score-container .generate-btn {
   position: absolute;
@@ -84,4 +99,30 @@
   background-color: green;
   border-radius: 50px;
   cursor: pointer;
+}
+
+.test-result-container {
+  margin-top: 20px;
+}
+.test-result-container h4 {
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+.test-result-container .test-result-box {
+  width: 60%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.test-result-container .test-result-box .question-no {
+  border-radius: 8px;
+  padding: 20px;
+}
+.test-result-container .test-result-box .wrong-box {
+  background-color: rgba(255, 0, 0, 0.511);
+  border: 2px solid red;
+}
+.test-result-container .test-result-box .correct-box {
+  background-color: rgba(0, 255, 128, 0.432);
+  border: 2px solid rgb(28, 158, 72);
 }/*# sourceMappingURL=Result.css.map */

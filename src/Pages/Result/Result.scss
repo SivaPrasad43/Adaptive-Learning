@@ -1,35 +1,45 @@
 .result-container{
-    height: 100vh;
+    height: 91vh;
     background-color: #161520;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
+    box-sizing: border-box;
 }
-.status-container{
-    width: 100%;
-    height: 70vh;
+.status-wrap{
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    h1{
-        font-size: 6rem;
-        margin-bottom: 20px;
+    height: 100vh;
+    padding-top: 100px;
+    .status-container{
+        width: 60%;
+        display: flex;
+        flex-direction: column;
+        padding:  20px 40px;
+        overflow: scroll;
+        h1{
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+        h3{
+            margin-bottom: 20px;
+        }
+        .level{
+            font-size: 3rem;
+            color: orange;
+        }
     }
-    h3{
-        margin-bottom: 20px;
-    }
-    .level{
-        font-size: 3rem;
-        color: orange;
+    .graph-container{
+        width: 40%;
+        padding-right: 5rem;
+        // background-color: rgba(40, 28, 57, 0.251);
     }
 }
 .agree-container{
     display: flex;
     align-items: center;
     gap: 10px;
-    h3{
-        margin:0;
+    h4{
+        font-size: 20px;
     }
     .agree-btn{
         padding: 8px 32px;
@@ -39,13 +49,17 @@
     }
 }
 .score-container{
-    height: 30vh;
-    padding: 0 20px;
+    width: 100%;
+    padding: 10px 40px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 40px;
-    position: relative;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    box-sizing: border-box;
+    background-color: #161520;
     .result-box-container{
         display: flex;
         width: 40%;
@@ -57,16 +71,18 @@
             align-items: center;
             .value-box{
                 min-width: max-content;
-                height: 8rem;
                 border: 2px solid white;
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 border-radius: 12px;
                 h1{
-                    font-size: 50px;
+                    font-size: 30px;
                     margin: 10px;
                 }
+            }
+            h3{
+                font-size: 15px;
             }
         }
     }
@@ -78,5 +94,31 @@
         background-color: green;
         border-radius: 50px;
         cursor: pointer;
+    }
+}
+
+.test-result-container{
+    margin-top: 20px;
+    h4{
+        margin-bottom: 20px;
+        font-size: 20px;
+    }
+    .test-result-box{
+        width: 60%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        .question-no{
+            border-radius: 8px;
+            padding: 20px;
+        }
+        .wrong-box{
+            background-color: rgba(255, 0, 0, 0.511);
+            border: 2px solid red;
+        }
+        .correct-box{
+            background-color: rgba(0, 255, 128, 0.432);
+            border: 2px solid rgb(28, 158, 72);
+        }
     }
 }

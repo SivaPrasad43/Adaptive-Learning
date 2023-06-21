@@ -3,8 +3,8 @@ export const data = [
         "tagid": 0,
         "tag": "variable",
         "tag_name": "Variable in Python",
-        "description": "This is a variable in Python.",
-        "youtube": "https://www.youtube.com/embed/QMczPHw4nT8"
+        "description": "In Python, variables are used to store and manipulate data. They act as containers that hold values, allowing you to refer to the stored data by using the variable name. When you assign a value to a variable, Python reserves a memory location to store that value.",
+        "youtube": "https://www.youtube.com/embed/o-pRdr8IMWg"
     },
     {
         "tagid": 1,

@@ -10,7 +10,7 @@
     font-family: 'Dela Gothic One';
     line-height: 6rem;
     padding-top: 70px;
-    padding-bottom: 10px;
+    padding-bottom: 0px;
     color: black;
   }
   h2{
@@ -48,14 +48,70 @@
     font-size: 30px;
     font-weight: 600;
     margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   .login-btn:active{
     background-color: rgb(61, 61, 61);
   }
   .register-btn{
-    background-color: rgb(61, 61, 61);
+    background-color: rgb(14, 114, 142);
     padding:10px 30px;
     color: white;
     border-radius: 12px;
     margin-top: 20px;
+    border: none;
+    font-weight: bold;
   }
+  
+  .error-box{
+    width: 50%;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 6px;
+    background-color: rgb(247, 122, 122);
+  }
+  .error-box h4{
+    color: rgb(79, 3, 3);
+  }
+  .input-container{
+    /* background-color: red; */
+    width: 65%;
+    padding: 4px 10px;
+  }
+  .input-container p{
+    font-size: 14px;
+    margin-left: 5px;
+    padding: 0;
+  }
+  .input-container input{
+    width: 90%;
+    margin-top: 2px;
+  }
+
+  .input-container select{
+    width: 96%;
+    color: black;
+    padding: 10px;
+    border-radius: 8px;
+  }
+
+  .input-container option {
+    color: black;
+  }
+
+  .custom-loader {
+    width:25px;
+    height:25px;
+    --c:radial-gradient(farthest-side,#F4F4F4 92%,#0000);
+    background: 
+      var(--c) 50% 0,
+      var(--c) 50% 100%,
+      var(--c) 100% 50%,
+      var(--c) 0    50%;
+    background-size:6px 6px;
+    background-repeat:no-repeat;
+    animation:s7 2s infinite;
+  }
+  @keyframes s7 {to{transform: rotate(.5turn)}}

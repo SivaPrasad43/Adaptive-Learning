@@ -1,59 +1,128 @@
-.qn-container{
+.qn-container {
     height: 100vh;
     background-color: #161520;
-    overflow:scroll ;
-    .qn-box{
-        padding:40px;
-        h1{
+    overflow: scroll;
+    box-sizing: border-box;
+    .qn-box {
+        padding: 40px;
+        h1 {
             width: 80%;
-            margin-top: 20px;
+            margin-top: 40px;
         }
     }
-    p{
+
+    p {
         font-size: 30px;
         height: 70vh;
         display: flex;
         align-items: center;
         justify-content: center;
     }
-    .option-container{
+
+    .option-container {
         width: 50%;
         display: grid;
         grid-template-columns: 2fr 2fr;
         margin-top: 20px;
-        .option-box{
+
+        .option-box {
             flex-basis: calc(100%);
             margin: 5px;
             background-color: #2a293d;
             border-radius: 20px;
-            h3{
+
+            h3 {
                 margin: 20px;
             }
-            &:hover{
+
+            &:hover {
                 background-color: #3b3a54;
             }
         }
     }
-}
-.submit-btn{
-    position: absolute;
-    right: 20px;
-    bottom: 40px;
-    button{
-        width: max-content;
-        background-color: rgb(11, 125, 76);
-        padding:10px 30px;
-        color: white;
-        border-radius: 8px;
-        margin-top: 20px;
-        outline: none;
-        border: none;
-        &:hover{
-            background-color: rgb(28, 150, 97);
+
+    .footer-container {
+        width: 100%;
+        border-top: 2px solid #504e68;
+        padding: 0px 40px;
+        height: 80px;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-sizing: border-box;
+        .question-details{
+            display: flex;
+            gap: 20px;
+            p{
+                margin: 0;
+                height: max-content;
+                font-size: 15px;
+            }
+        }
+        .submit-btn {
+            button {
+                width: max-content;
+                background-color: rgb(11, 125, 76);
+                padding: 10px 30px;
+                color: white;
+                border-radius: 8px;
+                outline: none;
+                border: none;
+
+                &:hover {
+                    background-color: rgb(28, 150, 97);
+                }
+            }
         }
     }
 }
-.active{
+
+.active {
     background-color: rgb(11, 125, 76) !important;
 }
 
+.logout-container {
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+}
+
+.logout-btn {
+    background-color: red;
+    padding: 3px 15px;
+    width: max-content;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.guestion-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    .level-box {
+        padding: 4px 8px;
+        border-radius: 8px;
+
+        h4 {
+            color: black;
+            font-size: 12px;
+        }
+    }
+}
+
+.beg-box {
+    background-color: rgb(245, 245, 113);
+    color: rgb(84, 84, 2);
+}
+
+.intr-box {
+    background-color: rgb(252, 191, 78);
+    color: rgb(129, 84, 2);
+}
+
+.adv-box {
+    background-color: rgb(248, 123, 123);
+}

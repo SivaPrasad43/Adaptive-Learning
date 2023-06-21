@@ -14,3 +14,7 @@ a,a:hover{
   height: 100vh;
   background-color: #161520;
 }
+i{
+  display: flex;
+  align-self: center;
+}

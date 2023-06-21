@@ -1,0 +1,30 @@
+{
+    "categories": [
+      {
+        "id": 1,
+        "name": "Primary School"
+      },
+      {
+        "id": 2,
+        "name": "Middle School"
+      },
+      {
+        "id": 3,
+        "name": "High School"
+      },
+      {
+        "id": 4,
+        "name": "Undergraduate"
+      },
+      {
+        "id": 5,
+        "name": "Graduate"
+      },
+      {
+        "id": 6,
+        "name": "Doctorate"
+      }
+    ]
+  }
+  
+  

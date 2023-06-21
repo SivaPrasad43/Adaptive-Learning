@@ -1,23 +1,37 @@
 .road-container {
-  height: 100vh;
+  height: 91.5vh;
   background-color: #161520;
-  box-sizing: border-box;
+  margin-top: 4rem;
   display: flex;
+}
+.road-container p {
+  font-size: 1.1rem;
 }
 
 .roadmap {
-  width: 60%;
-  height: 100vh;
-  background-color: gray;
+  width: 30%;
+  height: 91vh;
+  background-color: #2c2a38;
   overflow: scroll;
+  margin-bottom: 9rem;
+}
+.roadmap h1 {
+  padding: 20px;
 }
 
 .topic-container {
-  background-color: #2c2a38;
   padding: 20px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   position: relative;
+  font-size: 1.2rem;
+  border-bottom: 1px solid #403c58;
+}
+.topic-container .topic-value-container {
+  display: flex;
+  width: 100%;
+  align-items: center;
 }
 .topic-container .topic-num {
   background-color: #726e8a;
@@ -33,38 +47,79 @@
 .topic-container .topic-num h3 {
   color: rgb(236, 242, 238);
 }
+.topic-container .start,
+.topic-container .end {
+  background-color: #2c2a38;
+}
 .topic-container .topic-name {
   width: 70%;
   margin-left: 10px;
-  font-size: 22px;
 }
 
-.topic-container:hover {
-  background-color: #393550;
+.topic-not-clickable {
+  background-color: green;
+}
+
+.topic-clickable {
+  background-color: #2c2a38;
+}
+.topic-clickable:hover {
+  background-color: #3f3d50;
 }
 
 .disc {
   background-color: #161520;
-  width: 40%;
-  padding: 20px;
+  box-sizing: border-box;
+  width: 70%;
+  padding: 2rem;
+  margin-bottom: 5rem;
+  overflow: scroll;
+  position: relative;
+}
+.disc .disc-item {
+  width: 80%;
+}
+.disc .disc-item h1 {
+  margin-bottom: 1rem;
 }
 .disc .disc-item .youtube {
   margin-top: 20px;
 }
-
-.status-box-container {
+.disc .disc_bottom_container {
+  width: 70%;
+  background-color: #37365f;
+  position: fixed;
+  bottom: 0;
+  padding: 1rem;
+  margin-left: -2rem;
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  gap: 1rem;
 }
-.status-box-container .complt-btn {
+.disc .disc_bottom_container .complt-btn {
   width: -moz-max-content;
   width: max-content;
-  padding: 10px 40px;
-  background-color: gray;
-  color: black;
+  padding: 12px 20px;
+  background-color: rgb(12, 107, 59);
+  border: 2px solid rgb(47, 146, 97);
+  color: rgb(255, 255, 255);
   border-radius: 8px;
   cursor: pointer;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+.disc .disc_bottom_container .already-know {
+  width: -moz-max-content;
+  width: max-content;
+  padding: 12px 20px;
+  color: rgb(255, 255, 255);
+  border: 2px solid #6e6daa;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+
+.hide {
+  display: none;
 }
 
 .finish-container {
@@ -72,6 +127,13 @@
   width: 100%;
   background-color: #161520;
   box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.no_topic_container {
+  width: 60%;
   display: flex;
   justify-content: center;
   align-items: center;
