@@ -13,22 +13,19 @@ function Instructions() {
         subjectName : "Python"
     }
 
-    useEffect(() => {
-        const fetchData = async () => {
-          try {
-            const result = ApiGateway.post('/api/v1/create-test/',bodyProps)
-            result.then(({ data }) => {
-                console.log(data)
-                localStorage.setItem('testId',data.response.testId)
-            })
-          } catch (e) {
-            console.log(e);
-          }
-        };
-        fetchData();
-      }, []);
-
     const handleStart = ()=> {
+        const fetchData = async () => {
+            try {
+              const result = ApiGateway.post('/api/v1/create-test/',bodyProps)
+              result.then(({ data }) => {
+                  console.log(data)
+                  localStorage.setItem('testId',data.response.testId)
+              })
+            } catch (e) {
+              console.log(e);
+            }
+          };
+          fetchData();
         navigate('/test/Python')
     }
 

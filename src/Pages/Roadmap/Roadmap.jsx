@@ -86,9 +86,14 @@ function Roadmap() {
     fetchData();
   }, [isMarkAsCheckedClicked,isReloadClicked]);
 
+  useEffect(() => {
+    setIsReloadClicked(false)
+  },[isMarkAsCheckedClicked])
+
 
   const handleTopic = ({ tag,tagName, tagDisc, tagYoutube,isMarkedAsChecked,isAlreadyKnow }) => {
     setSelectedTopic({ tag,tagName, tagDisc, tagYoutube,isMarkedAsChecked,isAlreadyKnow });
+    setIsReloadClicked(false)
   }
 
   const markAsComplete = async (tag,isAlreadyKnow) => {
@@ -109,7 +114,12 @@ function Roadmap() {
       "Content-Type": "application/json",
     }})
     console.log("mark as complete-->",result)
+    setIsReloadClicked(true)
   };
+
+  // useEffect(()=>{
+  //   setIsReloadClicked(false)
+  // },[])
 
   useEffect(() => {
     if (topics.length === 0) {
@@ -141,10 +151,12 @@ function Roadmap() {
               setIsReloadClicked(true)
               console.log("reload-->",isReloadClicked)
               markAsComplete(tag,isAlreadyKnow)
+              setSelectedTopic({ tag,tagName, tagDisc, tagYoutube,isMarkedAsChecked,isAlreadyKnow });
             }}
           >🔁</p>
           ) : null
         }
+        <p>{tag}</p>
       </div>
     )
   }
@@ -231,8 +243,10 @@ function Roadmap() {
                     </div> */}
                     <div 
                       className="complt-btn" 
-                      onClick={()=>
-                      markAsComplete(selectedTopic.tag,selectedTopic.isAlreadyKnow)
+                      onClick={()=>{
+                        setIsReloadClicked(false)
+                        markAsComplete(selectedTopic.tag,selectedTopic.isAlreadyKnow)
+                      }
                       }>
                       Mark as Completed✅
                     </div>
