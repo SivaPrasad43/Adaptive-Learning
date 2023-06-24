@@ -7,12 +7,21 @@ import CanvasJSReact from '@canvasjs/react-charts';
 
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
-const Graph = () => {
+const Graph = ({resultData}) => {
+  console.log("ithann chartilekk ull data-->",resultData)
+
+  const BAC = resultData.slice(0,5).filter(answer => answer.correct).length;
+  const IAC = resultData.slice(5,10).filter(answer => answer.correct).length;
+  const AAC = resultData.slice(10,15).filter(answer => answer.correct).length;
+
+  const TCA = BAC+IAC+AAC;
+
+
   const options = {
     animationEnabled: true,
     theme: "dark1",
     title: {
-      text: "Proficiency Level Progression Over Time",
+      text: "Correct Answers Stats (According to Score)",
       fontSize:24,
     },
     subtitles: [{
@@ -27,9 +36,9 @@ const Graph = () => {
       indexLabel: "{name}: {y}",
       yValueFormatString: "#,###'%'",
       dataPoints: [
-        { name: "Begginner", y: 50 },
-        { name: "Intermediate", y: 30 },
-        { name: "Advanced", y: 20 },
+        { name: "Beg  inner", y: (BAC/TCA)*100},
+        { name: "Intermediate", y: (IAC/TCA)*100},
+        { name: "Advanced", y: (AAC/TCA)*100},
       ]
     }]
   }
@@ -107,7 +116,7 @@ function Result() {
         </div>
         <div className="graph-container">
             {/* Graph container */}
-            <Graph/>
+            <Graph resultData={resultData}/>
         </div>
       </div>
       <div className="score-container">

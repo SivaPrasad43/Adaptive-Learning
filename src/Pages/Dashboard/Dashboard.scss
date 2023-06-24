@@ -77,12 +77,29 @@
                 background-color: rgb(22, 150, 99);
             }
         }
-        .view_btn{
-            background-color: purple;
-            padding: 10px;
-            text-align: center;
-            border-radius: 10px;
+        .card_bottom_container{
+            display: flex;
+            flex: 1;
+            align-items: center;
             margin-top: 20px;
+            gap: 10px;
+            .view_btn{
+                flex: 1;
+                background-color: purple;
+                padding: 10px;
+                text-align: center;
+                border-radius: 10px;
+                &:hover{
+                    background-color: rgb(121, 5, 121);
+                }
+            }
+            .delete_btn{
+                padding:10px;
+                border-radius: 10px;
+                &:hover{
+                    background-color: #323046;
+                }
+            }
         }
     }
 }

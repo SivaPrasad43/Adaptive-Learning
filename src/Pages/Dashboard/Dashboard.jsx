@@ -75,6 +75,7 @@ const data = [
 function Dashboard() {
 
     const [userName,setUserName] = useState("")
+    const [dashboardData,setDashboardData] = useState([])
 
     const user  = useRef(null)
 
@@ -104,10 +105,22 @@ function Dashboard() {
         setUserName(result.data.response.name);
       }
     }
+    const fetchData = async() => {
+      try {
+        const result = ApiGateway.get('/api/v1/list-all-subjects/')
+        result.then(({ data }) => {
+            console.log(data)
+            setDashboardData(data.response)
+        })
+      } catch (e) {
+        console.log(e);
+      }
+    };
 
-    useEffect(()=>{
+    useEffect(() => {
       checkUserStatus()
-    },[])
+      fetchData()
+    }, [])
 
     // useEffect(()=>{
     //     const checkUserStatus = async () => {
@@ -140,9 +153,70 @@ function Dashboard() {
         navigate('/select-sub')
     }
 
+    const SubCard = ({testId,subName,subProf,subPerc,fetchFunction}) => {
+
+      const handleDelete = async () => {
+        try {
+          const confirmed = window.confirm("Are you sure you want to delete?");
+          if (confirmed) {
+            const result = await ApiGateway.delete(`/api/v1/delete-test/${testId}/`);
+            console.log(result);
+            fetchFunction()
+          }else{
+            console.log("closed")
+          }
+        } catch (e) {
+          console.log(e);
+        }
+      }
+  
+      const handleViewRoadmap = async ()=> {
+        try {
+          navigate('/roadmap')
+        } catch (e) {
+          console.log(e);
+        }
+      }
+      return (
+          <div className="sub_card">
+              {/* <img className='sub_img' src="../" alt="sub img"/> */}
+              <div className="sub_data">
+                  <div className="sub_details">
+                      <h2>{subName}</h2>
+                      <h3>{subProf}</h3>
+                  </div>
+                  <CircularProgressBar
+                      selectedValue={subPerc}
+                      maxValue={100}
+                      radius={30}
+                      strokeWidth={6}
+                      activeStrokeColor='rgb(22, 150, 99)'
+                      backgroundColor='#161520'
+                      textColor='white'
+                      valueFontSize={22}
+                  />
+              </div>
+              <div className="card_bottom_container">
+                <div 
+                  className="view_btn"
+                  onClick={()=>handleViewRoadmap()}
+                >View Roadmap</div>
+                <div 
+                  className="delete_btn"
+                  onClick={()=>handleDelete()}
+                >
+                  <i className="fi fi-rr-trash"></i>
+                </div>
+              </div>
+          </div>
+      )
+  }
     return (
         <>
       <Navbar />
+      {
+           console.log(dashboardData)
+      }
       <div className='dashboard_container'>
         <div className="profile_container">
               <h1>Hi {userName} 👋</h1>
@@ -158,42 +232,19 @@ function Dashboard() {
           </div>
         </div>
         <div className="card_container">
-          {data.map(item => (
+          {dashboardData.map((item,index) => (
             <SubCard
-              key={item.subName} // Add a key prop to avoid React warning
-              subName={item.subName}
-              subProf={item.subProf}
-              subPerc={item.subPerc}
+              key={index} // Add a key prop to avoid React warning
+              testId = {item.id}
+              subName={item.subject}
+              subProf={item.proficiency}
+              subPerc={item.percentage_of_completed}
+              fetchFunction={fetchData}
             />
           ))}
         </div>
       </div>
     </>
-    )
-}
-
-const SubCard = ({subName,subProf,subPerc}) => {
-    return (
-        <div className="sub_card">
-            {/* <img className='sub_img' src="../" alt="sub img"/> */}
-            <div className="sub_data">
-                <div className="sub_details">
-                    <h2>{subName}</h2>
-                    <h3>{subProf}</h3>
-                </div>
-                <CircularProgressBar
-                    selectedValue={subPerc}
-                    maxValue={100}
-                    radius={30}
-                    strokeWidth={6}
-                    activeStrokeColor='rgb(22, 150, 99)'
-                    backgroundColor='#161520'
-                    textColor='white'
-                    valueFontSize={22}
-                />
-            </div>
-            <div className="view_btn">View Roadmap</div>
-        </div>
     )
 }
 

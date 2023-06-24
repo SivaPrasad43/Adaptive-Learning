@@ -116,6 +116,26 @@ function Roadmap() {
     console.log("mark as complete-->",result)
     setIsReloadClicked(true)
   };
+  
+
+  const alreadyKnow = async (tag,isAlreadyKnow)=> {
+    // setIsMarkAsCheckedClicked(!isMarkAsCheckedClicked)
+    // setSelectedTopic(null)
+    // console.log("TAG IS--->",tag)
+    // const result = await axios.post(`http://127.0.0.1:8000/api/v1/mark-as-checked/`,
+    // {
+    //     testId: localStorage.getItem('testId'),
+    //     tagName: tag,
+    //     isMarkedAsChecked: isReloadClicked ? false : true,
+    //     isAlreadyKnow: isAlreadyKnow
+    // },
+    // {headers: {
+    //   "Authorization": `Bearer ${localStorage.getItem('accessToken')}`,
+    //   "Content-Type": "application/json",
+    // }})
+    // console.log("mark as complete-->",result)
+    // setIsReloadClicked(true)
+  }
 
   // useEffect(()=>{
   //   setIsReloadClicked(false)
@@ -238,9 +258,9 @@ function Roadmap() {
                     ></iframe>
                   </div>
                   <div className="disc_bottom_container">
-                    {/* <div className="already-know" onClick={markAsComplete()}>
+                    <div className="already-know" onClick={alreadyKnow(selectedTopic.tag,selectedTopic.isAlreadyKnow)}>
                       I already Know this👍
-                    </div> */}
+                    </div>
                     <div 
                       className="complt-btn" 
                       onClick={()=>{
