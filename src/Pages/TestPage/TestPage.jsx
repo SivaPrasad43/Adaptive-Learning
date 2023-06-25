@@ -18,8 +18,13 @@ const TestPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = ApiGateway.get('/api/v1/get-questions/')
-        result.then(({ data }) => {
+        // const result = ApiGateway.get('/api/v1/get-questions/')
+        const result = await axios.get("http://127.0.0.1:8000/api/v1/get-questions/",
+        {headers: {
+          "Authorization": `Bearer ${localStorage.getItem('accessToken')}`,
+          "Content-Type": "application/json",
+        }})
+        .then(({ data }) => {
           setData(data.response)
         })
         setLoading(false)

@@ -6,6 +6,7 @@ import { LoginContext } from '../../../Context/Auth';
 import ApiGateway from '../../../Service/ApiGateway';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import axios from 'axios';
 
 function Navbar({ logoutStatus, subShow, DashboardShow }) {
 
@@ -25,10 +26,14 @@ function Navbar({ logoutStatus, subShow, DashboardShow }) {
 
   const checkUserStatus = async () => {
     if (localStorage.getItem('accessToken')) {
-      const result = await ApiGateway.get('/api/v1/info/')
+      const result = await axios.get("http://127.0.0.1:8000/api/v1/info/",
+      {headers: {
+        "Authorization": `Bearer ${localStorage.getItem('accessToken')}`,
+        "Content-Type": "application/json",
+      }})
       console.log(result.data.response)
       if (result.data.response.email) {
-        setUser(trimMailDomain(result.data.response.email))
+        setUser(result.data.response.email)
       } else {
         console.log("not killadi")
         navigate('/select-sub')

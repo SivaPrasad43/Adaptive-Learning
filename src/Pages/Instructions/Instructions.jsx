@@ -1,5 +1,6 @@
 import React,{useEffect} from 'react'
 import ApiGateway from '../../Service/ApiGateway'
+import axios from 'axios'
 
 import './Instructions.css'
 
@@ -10,14 +11,20 @@ function Instructions() {
     const navigate = useNavigate()
 
     const bodyProps = {
-        subjectName : "Python"
+        subjectName : "HTML"
     }
 
     const handleStart = ()=> {
         const fetchData = async () => {
             try {
-              const result = ApiGateway.post('/api/v1/create-test/',bodyProps)
-              result.then(({ data }) => {
+            //   const result = ApiGateway.post('/api/v1/create-test/',bodyProps)
+            await axios.post("http://127.0.0.1:8000/api/v1/create-test/",
+            bodyProps,
+            {headers: {
+              "Authorization": `Bearer ${localStorage.getItem('accessToken')}`,
+              "Content-Type": "application/json",
+            }})
+            .then(({ data }) => {
                   console.log(data)
                   localStorage.setItem('testId',data.response.testId)
               })
@@ -69,7 +76,7 @@ function Instructions() {
                 </li>
             </ol>
             <button
-                onClick={handleStart}
+                onClick={()=>handleStart()}
             >Start</button>
         </div>
     </div>

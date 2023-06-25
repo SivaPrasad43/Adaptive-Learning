@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import ApiGateway from '../../Service/ApiGateway';
 import Navbar from '../../Components/res/Navbar/Navbar';
 import CanvasJSReact from '@canvasjs/react-charts';
+import axios from 'axios';
 
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
@@ -63,22 +64,30 @@ function Result() {
   const [resultData,setResultData] = useState([])
   
   useEffect(() => {
-    try {
-      const result = ApiGateway.get(`/api/v1/results/${localStorage.getItem('testId')}/`);
-      result.then(({ data }) => {
-        console.log("result: ", data);
-        console.log("RESULT:",data.response.reports)
-        setResultData(data.response.reports)
-        // console.log(data.response.proficiencyLevel)
-        setProff(data.response.proficiencyLevel);
-        const elapsedTime = data.response.elapsedTime;
-        setElapsedTime(elapsedTime.toFixed(2));
-        setScore(data.response.totalScore);
-        setWrongTags(data.response.wrong)
-      });
-    } catch (e) {
-      console.log(e);
+    const fetchData = async ()=> {
+        try {
+          // const result = ApiGateway.get(`/api/v1/results/${localStorage.getItem('testId')}/`);
+          await axios.get(`http://127.0.0.1:8000/api/v1/results/${localStorage.getItem('testId')}/`,
+          {headers: {
+            "Authorization": `Bearer ${localStorage.getItem('accessToken')}`,
+            "Content-Type": "application/json",
+          }})
+          .then(({ data }) => {
+            console.log("result: ", data);
+            console.log("RESULT:",data.response.reports)
+            setResultData(data.response.reports)
+            // console.log(data.response.proficiencyLevel)
+            setProff(data.response.proficiencyLevel);
+            const elapsedTime = data.response.elapsedTime;
+            setElapsedTime(elapsedTime.toFixed(2));
+            setScore(data.response.totalScore);
+            setWrongTags(data.response.wrong)
+          });
+        } catch (e) {
+          console.log(e);
+        }
     }
+    fetchData()
   }, []);
 
   return (
@@ -103,6 +112,7 @@ function Result() {
               <div 
                 className="agree-btn"
                 onClick={()=>{
+                  localStorage.removeItem("testId")
                   navigate('/instructions')
                 }}
               >No</div>

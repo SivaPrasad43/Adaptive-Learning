@@ -9,69 +9,6 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { useRef } from 'react'
 
-const data = [
-    {
-        subName: 'Python',
-        subProf: 'Beginner',
-        subPerc: 50
-    },
-    {
-        subName: 'HTML',
-        subProf: 'Intermediate',
-        subPerc: 70
-    },
-    {
-        subName: 'CSS',
-        subProf: 'Advanced',
-        subPerc: 90
-    },
-    {
-        subName: 'JavaScript',
-        subProf: 'Beginner',
-        subPerc: 50
-    }
-    // {
-    //     subName: 'JavaScript',
-    //     subProf: 'Beginner',
-    //     subPerc: 50
-    // },
-    // {
-    //     subName: 'JavaScript',
-    //     subProf: 'Beginner',
-    //     subPerc: 50
-    // },
-    // {
-    //     subName: 'JavaScript',
-    //     subProf: 'Beginner',
-    //     subPerc: 50
-    // },
-    // {
-    //     subName: 'JavaScript',
-    //     subProf: 'Beginner',
-    //     subPerc: 50
-    // },
-    // {
-    //     subName: 'JavaScript',
-    //     subProf: 'Beginner',
-    //     subPerc: 50
-    // },
-    // {
-    //     subName: 'JavaScript',
-    //     subProf: 'Beginner',
-    //     subPerc: 50
-    // },
-    // {
-    //     subName: 'JavaScript',
-    //     subProf: 'Beginner',
-    //     subPerc: 50
-    // },
-    // {
-    //     subName: 'JavaScript',
-    //     subProf: 'Beginner',
-    //     subPerc: 50
-    // },
-]
-
 function Dashboard() {
 
     const [userName,setUserName] = useState("")
@@ -101,14 +38,20 @@ function Dashboard() {
           "Authorization": `Bearer ${localStorage.getItem('accessToken')}`,
           "Content-Type": "application/json",
         }})
+        console.log(result.data)
         console.log(result.data.response)
         setUserName(result.data.response.name);
       }
     }
     const fetchData = async() => {
       try {
-        const result = ApiGateway.get('/api/v1/list-all-subjects/')
-        result.then(({ data }) => {
+        // const result = ApiGateway.get('/api/v1/list-all-subjects/')
+        const result = await axios.get("http://127.0.0.1:8000/api/v1/list-all-subjects/",
+        {headers: {
+          "Authorization": `Bearer ${localStorage.getItem('accessToken')}`,
+          "Content-Type": "application/json",
+        }})
+        .then(({ data }) => {
             console.log(data)
             setDashboardData(data.response)
         })
@@ -159,7 +102,12 @@ function Dashboard() {
         try {
           const confirmed = window.confirm("Are you sure you want to delete?");
           if (confirmed) {
-            const result = await ApiGateway.delete(`/api/v1/delete-test/${testId}/`);
+            // const result = await ApiGateway.delete(`/api/v1/delete-test/${testId}/`);
+            const result = await axios.delete(`http://127.0.0.1:8000/api/v1/delete-test/${testId}/`,
+            {headers: {
+              "Authorization": `Bearer ${localStorage.getItem('accessToken')}`,
+              "Content-Type": "application/json",
+            }})
             console.log(result);
             fetchFunction()
           }else{

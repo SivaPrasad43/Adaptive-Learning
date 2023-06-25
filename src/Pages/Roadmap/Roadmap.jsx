@@ -29,26 +29,9 @@ function Roadmap() {
   const [filterData, setFilterData] = useState([])
   const [isMarkAsCheckedClicked,setIsMarkAsCheckedClicked] = useState(false)
   const [isReloadClicked,setIsReloadClicked] = useState(false)
+  const [isAlreadyKnowClicked,setIsAlreadyKnowClicked] = useState(false)
 
 
-  // const sortTags = () => {
-
-  //   SortedListRef.current = sortedList
-  //   console.log("ref sorted" , SortedListRef.current)
-  // };
-
-
-  // useEffect(()=>{
-  //   fetch('https://opensheet.elk.sh/1t_KZPkSk2xrb1U-ElUbJV6ECa_lOgt94hlqdd5QByaA/Sheet1');
-  //   .then(data => response.json())
-
-  //   const result = response.json();
-  //   console.log("result", result);
-  //   TagsNotSortedRef.current = result
-  //   console.log("result ref:",  TagsNotSortedRef.current)
-  //   setWrongTags(result);
-  //   sortTags() 
-  // },[])
 
   useEffect(() => {
     const fetchData = async () => {
@@ -59,46 +42,26 @@ function Roadmap() {
           "Authorization": `Bearer ${localStorage.getItem('accessToken')}`,
           "Content-Type": "application/json",
         }})
-        // console.log(result.data.response)
-        // const response = axios.get(`http://127.0.0.1:8000/api/v1/generate-roadmap/${localStorage.getItem('testId')}/`);
         console.log("roadmap response-->",result.data.response)
-        setTagData(result.data.response)
-        // const jsonData = await response.json();
-        // setWrongTags(jsonData);
-        // console.log("response: ", jsonData)
-        // console.log("response from result:", loc.state.wrongTags)
-        // setWrongTagList(jsonData.map(item => item.tag));
-        // // console.log(wrongTagList)
-        // console.log("all :", TagsSorted)
-        // const sortedList = loc.state.wrongTags.map(item => item.tag).sort((a, b) => TagsSorted.indexOf(a) - TagsSorted.indexOf(b));
-        // console.log("sorted: ", sortedList)
-        // setSortedTagList(sortedList)
-
-        // const filterList = jsonData.filter(item => sortedList.includes(item.tag));
-        // setFilterData(filterList)
-        // filterListRef.current = filterList
-        // console.log("filter list:", filterList)
-
+        setTagData(result.data.response.filter(item => item.alreadyKnow === false))
+        setIsAlreadyKnowClicked(false)
       } catch (error) {
         console.log(error)
       }
     };
     fetchData();
-  }, [isMarkAsCheckedClicked,isReloadClicked]);
+  }, [isMarkAsCheckedClicked,isReloadClicked,isAlreadyKnowClicked]);
 
-  useEffect(() => {
-    setIsReloadClicked(false)
-  },[isMarkAsCheckedClicked])
+  useEffect(()=>{
+    setIsReloadClicked(true)
+  },[])
 
 
   const handleTopic = ({ tag,tagName, tagDisc, tagYoutube,isMarkedAsChecked,isAlreadyKnow }) => {
     setSelectedTopic({ tag,tagName, tagDisc, tagYoutube,isMarkedAsChecked,isAlreadyKnow });
-    setIsReloadClicked(false)
   }
 
-  const markAsComplete = async (tag,isAlreadyKnow) => {
-    // setTopics((prevTopics) => prevTopics.filter((topic) => topic.tag_name !== selectedTopic.tagName));
-    // setSelectedTopic(null);
+  const markAsComplete = async (tag,isAlreadyKnow,isReloadClicked) => {
     setIsMarkAsCheckedClicked(!isMarkAsCheckedClicked)
     setSelectedTopic(null)
     console.log("TAG IS--->",tag)
@@ -119,27 +82,21 @@ function Roadmap() {
   
 
   const alreadyKnow = async (tag,isAlreadyKnow)=> {
-    // setIsMarkAsCheckedClicked(!isMarkAsCheckedClicked)
-    // setSelectedTopic(null)
-    // console.log("TAG IS--->",tag)
-    // const result = await axios.post(`http://127.0.0.1:8000/api/v1/mark-as-checked/`,
-    // {
-    //     testId: localStorage.getItem('testId'),
-    //     tagName: tag,
-    //     isMarkedAsChecked: isReloadClicked ? false : true,
-    //     isAlreadyKnow: isAlreadyKnow
-    // },
-    // {headers: {
-    //   "Authorization": `Bearer ${localStorage.getItem('accessToken')}`,
-    //   "Content-Type": "application/json",
-    // }})
-    // console.log("mark as complete-->",result)
-    // setIsReloadClicked(true)
+    console.log("hello")
+    setSelectedTopic(null)
+    const result = await axios.post(`http://127.0.0.1:8000/api/v1/mark-as-checked/`,
+    {
+        testId: localStorage.getItem('testId'),
+        tagName: tag,
+        isMarkedAsChecked: isReloadClicked ? false : true,
+        isAlreadyKnow: true
+    },
+    {headers: {
+      "Authorization": `Bearer ${localStorage.getItem('accessToken')}`,
+      "Content-Type": "application/json",
+    }})
+    setIsAlreadyKnowClicked(true)
   }
-
-  // useEffect(()=>{
-  //   setIsReloadClicked(false)
-  // },[])
 
   useEffect(() => {
     if (topics.length === 0) {
@@ -148,7 +105,8 @@ function Roadmap() {
   })
 
 
-  const TopicItem = ({ count, tag, tagName, tagDisc, tagYoutube,isMarkedAsChecked,isAlreadyKnow }) => {
+
+  const TopicItem = ({ count, tag, tagName, tagDisc, tagYoutube,isMarkedAsChecked,isAlreadyKnow, isReloadShow }) => {
     return (
       <div
         className={`topic-container ${isMarkedAsChecked ? 'topic-not-clickable' : 'topic-clickable' }`}
@@ -165,17 +123,18 @@ function Roadmap() {
           <div className="topic-name">{tagName}{isMarkedAsChecked ? '✅' : ''}</div>
         </div>
         {
-          isMarkedAsChecked ? (
+          isReloadShow ? (
           <p
             onClick={()=>{
-              setIsReloadClicked(true)
-              console.log("reload-->",isReloadClicked)
-              markAsComplete(tag,isAlreadyKnow)
               setSelectedTopic({ tag,tagName, tagDisc, tagYoutube,isMarkedAsChecked,isAlreadyKnow });
+              setIsReloadClicked(false)
+              markAsComplete(tag,isAlreadyKnow,isReloadClicked)
             }}
           >🔁</p>
           ) : null
         }
+        {/* <p>{isReloadClicked.toString()}</p>
+        <p>{isMarkedAsChecked.toString()}</p> */}
         <p>{tag}</p>
       </div>
     )
@@ -196,7 +155,7 @@ function Roadmap() {
             >
                       <div className='topic-value-container'>
               <div className="topic-num start">
-                <h3>🚩</h3>
+                <h3>🏳️</h3>
               </div>
               <div className="topic-name">Start</div>
               </div>
@@ -213,7 +172,9 @@ function Roadmap() {
                     tagDisc={item.description}
                     tagYoutube={item.reference_link}
                     isMarkedAsChecked = {item.mark_as_completed}
-                    isAlreadyKnow = {item.alreadyKnow} />
+                    isAlreadyKnow = {item.alreadyKnow}
+                    isReloadShow = {item.mark_as_completed}
+                    />
                 )
               })
             }
@@ -236,15 +197,6 @@ function Roadmap() {
                     console.log("selected tag", selectedTopic.tag)
                   }
                   <h1>💻{selectedTopic.tagName}</h1>
-                  {/* <Typewriter
-                        options={{
-                          delay: 0.1, 
-                        }}
-                    onInit={(typewriter) => {
-                      typewriter.typeString(`${selectedTopic.tagDisc}`)
-                        .start();
-                    }}
-                  /> */}
                   <p dangerouslySetInnerHTML={{ __html: selectedTopic.tagDisc }} />
                   <div className="youtube">
                     <iframe
@@ -258,7 +210,10 @@ function Roadmap() {
                     ></iframe>
                   </div>
                   <div className="disc_bottom_container">
-                    <div className="already-know" onClick={alreadyKnow(selectedTopic.tag,selectedTopic.isAlreadyKnow)}>
+                    <div className="already-know" 
+                    onClick={()=>
+                      alreadyKnow(selectedTopic.tag,selectedTopic.isAlreadyKnow)
+                      }>
                       I already Know this👍
                     </div>
                     <div 

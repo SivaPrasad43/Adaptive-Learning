@@ -16,7 +16,7 @@ export default function Login() {
   const [loginStatus, setLoginStatus] = useState(false)
   const [isLoading,setIsLoading] = useState(false)
 
-  const { setUsername } = useContext(LoginContext)
+  const { username,setUsername } = useContext(LoginContext)
 
   const usernameRef = useRef("")
   const passwordRef = useRef("")
@@ -25,6 +25,10 @@ export default function Login() {
 
   const successLogin = () => toast("Login Success!!")
   const errorLogin = () => toast("Please fill all the fields")
+
+  // useEffect(()=>{
+  //   localStorage.setItem('accessToken', "")
+  // },[])
 
   function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -42,7 +46,7 @@ export default function Login() {
 
   const handleLogin = async () => {
     console.log(usernameRef.current.value)
-    setUsername(usernameRef.current.value)
+    // setUsername(usernameRef.current.value)
     if (usernameRef.current.value === "" || passwordRef.current.value === "") {
       alert("Please fill all the fields")
       setIsLoading(false)
@@ -88,9 +92,9 @@ export default function Login() {
               console.log("killadi")
               console.log("puthye accesstoken: ",localStorage.getItem("accessToken"))
               console.log("user-data-->",result)
-              // sleep(2000);
+              // setUsername(result.data.response.email)
               setIsLoading(false)
-              navigate(`/dashboard/${trimMailDomain(result.data.response.email)}`)
+              navigate(`/dashboard/${result.data.response.email}`)
             } else {
               console.log("not killadi")
               navigate('/select-sub')
@@ -173,6 +177,7 @@ export default function Login() {
     const confpass = useRef("");
     const gender = useRef("");
     const education = useRef("");
+    const age = useRef("")
 
     const handleReg = async () => {
       if (
@@ -229,19 +234,46 @@ export default function Login() {
         <h2>Register.</h2>
         <div className='input-container'>
           <p>Username</p>
-          <input type="text" name="username" id="user" placeholder='Type Username' ref={user} />
+          <input
+          type="text"
+          name="username"
+          id="user"
+          placeholder="Type Username"
+          ref={user}
+          pattern="[A-Za-z0-9_]{3,20}"
+          title="Username must be alphanumeric and between 3 to 20 characters"
+          required
+        />
         </div>
         <div className='input-container'>
           <p>Email ID</p>
-          <input type="email" name="email" id="email" placeholder='Type Email ID' ref={email} />
+          <input
+          type="email"
+          name="email"
+          id="email"
+          placeholder="Type Email ID"
+          ref={email}
+          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+          title="Enter a valid email address"
+          required
+        />
         </div>
         <div className='input-container'>
           <p>Phone Number</p>
-          <input type="text" name="phone" id="phone" placeholder='Type Phone' ref={phone} />
+          <input
+          type="text"
+          name="phone"
+          id="phone"
+          placeholder="Type Phone"
+          ref={phone}
+          pattern="[0-9]{10}"
+          title="Phone number must be 10 digits"
+          required
+        />
         </div>
         <div className='input-container'>
           <p>Gender</p>
-          <select id="gender" ref={gender}>
+          <select id="gender" ref={gender} required>
             <option value="">Select Gender</option>
             <option value="male">Male</option>
             <option value="female">Female</option>
@@ -250,7 +282,7 @@ export default function Login() {
         </div>
         <div className='input-container'>
           <p>Age</p>
-          <select id="gender" ref={gender}>
+          <select id="gender" ref={age} required>
             <option value="">Select Age</option>
             <option value="young">12-22</option>
             <option value="middle">23-40</option>
@@ -260,7 +292,7 @@ export default function Login() {
         </div>
         <div className='input-container'>
           <p>Education</p>
-          <select id="gender" ref={education}>
+          <select id="gender" ref={education} required>
             <option value="">Select Education</option>
             {
               educationCategories.categories.map((item)=>(
