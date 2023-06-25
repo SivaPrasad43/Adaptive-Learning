@@ -161,7 +161,7 @@ function Dashboard() {
   }
     return (
         <>
-      <Navbar />
+      <Navbar logoutStatus={true}/>
       {
            console.log(dashboardData)
       }

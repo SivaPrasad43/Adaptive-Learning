@@ -67,7 +67,7 @@ function Roadmap() {
     console.log("TAG IS--->",tag)
     const result = await axios.post(`http://127.0.0.1:8000/api/v1/mark-as-checked/`,
     {
-        testId: localStorage.getItem('testId'),
+        testId: loc.state.testId,
         tagName: tag,
         isMarkedAsChecked: isReloadClicked ? false : true,
         isAlreadyKnow: isAlreadyKnow
@@ -88,7 +88,6 @@ function Roadmap() {
     {
         testId: loc.state.testId,
         tagName: tag,
-        isMarkedAsChecked: true,
         isAlreadyKnow: true
     },
     {headers: {
