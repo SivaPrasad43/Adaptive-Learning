@@ -6,10 +6,11 @@
 }
 .qn-container .qn-box {
   padding: 40px;
+  margin-top: 50px;
 }
 .qn-container .qn-box h1 {
   width: 80%;
-  margin-top: 40px;
+  margin-top: 30px;
 }
 .qn-container p {
   font-size: 30px;
@@ -84,7 +85,7 @@
 }
 
 .logout-btn {
-  background-color: red;
+  background-color: rgba(255, 0, 0, 0.658);
   padding: 3px 15px;
   width: -moz-max-content;
   width: max-content;

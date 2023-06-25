@@ -147,7 +147,7 @@ function Result() {
         <div
           className="generate-btn"
           onClick={() => {
-            navigate("/roadmap",{state:{wrongTags}});
+            navigate("/roadmap",{state:{testId:localStorage.getItem("testId")}});
           }}>
           Generate Roadmap
         </div>

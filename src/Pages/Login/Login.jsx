@@ -1,6 +1,6 @@
 import React from 'react'
 import "./Login.css"
-import { useState,useEffect, useContext, useRef } from 'react'
+import { useState, useEffect, useContext, useRef } from 'react'
 import { useNavigate } from "react-router-dom";
 import { LoginContext } from '../../Context/Auth';
 import { ToastContainer, toast } from 'react-toastify';
@@ -8,27 +8,51 @@ import 'react-toastify/dist/ReactToastify.css';
 import ApiGateway from '../../Service/ApiGateway';
 import educationCategories from './educationData.json';
 import axios from 'axios';
+import { Configuration, OpenAIApi } from "openai";
+import ChatBot from 'react-simple-chatbot';
 
 export default function Login() {
 
   const [checkLogin, SetCheckLogin] = useState(false)
   const [accessToken, setAccessToken] = useState("")
   const [loginStatus, setLoginStatus] = useState(false)
-  const [isLoading,setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
-  const { username,setUsername } = useContext(LoginContext)
+  const { username, setUsername } = useContext(LoginContext)
 
   const usernameRef = useRef("")
   const passwordRef = useRef("")
+  const doubtRef = useRef("")
 
   const navigate = useNavigate()
 
   const successLogin = () => toast("Login Success!!")
   const errorLogin = () => toast("Please fill all the fields")
 
-  // useEffect(()=>{
-  //   localStorage.setItem('accessToken', "")
-  // },[])
+  // useEffect(() => {
+  //   doubtRef.current = "Who are you";
+  //   const doubtValue = doubtRef.current;
+  //   console.log(doubtValue);
+  //   async function openAi() {
+  //     const configuration = new Configuration({
+  //       organization: "org-AfS54ICvYam62MCcEAn1HCgS",
+  //       apiKey: "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",
+  //     });
+  //     const openai = new OpenAIApi(configuration);
+  //     const response = await openai.createCompletion({
+  //       model: "text-davinci-003",
+  //       prompt: `You are a Python Tutor and your student asked a doubt that student:${doubtValue}\n You:`,
+  //       temperature: 0,
+  //       max_tokens: 150,
+  //       top_p: 1.0,
+  //       frequency_penalty: 0.5,
+  //       presence_penalty: 0.0,
+  //       stop: ["You:"],
+  //     });
+  //     console.log(response.data);
+  //   }
+  //   openAi()
+  // }, [])
 
   function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -74,31 +98,33 @@ export default function Login() {
           setLoginStatus(true)
           setIsLoading(false)
           sleep(2000)
-          setTimeout(()=>{
+          setTimeout(() => {
             setLoginStatus(false)
-          },1000)
+          }, 1000)
           throw new Error('Request failed');
         } else {
           // navigate('/select-sub')
           // if (localStorage.getItem('accessToken')) {
-            // const result = await axios.get('http://127.0.0.1:8000/api/v1/info/')
-            const result = await axios.get("http://127.0.0.1:8000/api/v1/info/",
-              {headers: {
+          // const result = await axios.get('http://127.0.0.1:8000/api/v1/info/')
+          const result = await axios.get("http://127.0.0.1:8000/api/v1/info/",
+            {
+              headers: {
                 "Authorization": `Bearer ${localStorage.getItem('accessToken')}`,
                 "Content-Type": "application/json",
-              }})
-            console.log(result.data.response)
-            if (result.data.response.isTestAttended) {
-              console.log("killadi")
-              console.log("puthye accesstoken: ",localStorage.getItem("accessToken"))
-              console.log("user-data-->",result)
-              // setUsername(result.data.response.email)
-              setIsLoading(false)
-              navigate(`/dashboard/${result.data.response.email}`)
-            } else {
-              console.log("not killadi")
-              navigate('/select-sub')
-            }
+              }
+            })
+          console.log(result.data.response)
+          if (result.data.response.isTestAttended) {
+            console.log("killadi")
+            console.log("puthye accesstoken: ", localStorage.getItem("accessToken"))
+            console.log("user-data-->", result)
+            // setUsername(result.data.response.email)
+            setIsLoading(false)
+            navigate(`/dashboard/${result.data.response.email}`)
+          } else {
+            console.log("not killadi")
+            navigate('/select-sub')
+          }
           // }
         }
 
@@ -110,6 +136,9 @@ export default function Login() {
   }
 
   const LoginBox = () => {
+
+    const [chatShow,setChatShow] = useState(false)
+
     return (
       <>
         <h2>Login.</h2>
@@ -134,10 +163,11 @@ export default function Login() {
           className='login-btn'
           onClick={() => {
             handleLogin()
+            setChatShow(true)
           }}>
-            {
-              isLoading ? (<div className="custom-loader"></div>) : <h3>&gt;</h3>
-            }
+          {
+            isLoading ? (<div className="custom-loader"></div>) : <h3>&gt;</h3>
+          }
         </button>
         <p
           style={{ fontSize: 15 }}
@@ -157,6 +187,31 @@ export default function Login() {
           pauseOnHover
           theme="dark"
         />
+        {/* {
+          chatShow && (
+            <ChatBot
+            headerTitle="Speech Synthesis"
+            speechSynthesis={{ enable: true, lang: 'en' }}
+            steps={[
+              {
+                id: '1',
+                message: 'What is your name?',
+                trigger: '2',
+              },
+              {
+                id: '2',
+                user: true,
+                trigger: '3',
+              },
+              {
+                id: '3',
+                message: 'Hi {previousValue}, nice to meet you!',
+                end: true,
+              },
+            ]}
+          />
+          )
+        } */}
       </>
     )
   }
@@ -197,7 +252,7 @@ export default function Login() {
             email: email.current.value,
             phone: phone.current.value,
             password: pass.current.value,
-            gender: gender.current.value, 
+            gender: gender.current.value,
             education: education.current.value,
             ageRange: "18-20"
           };
@@ -235,41 +290,41 @@ export default function Login() {
         <div className='input-container'>
           <p>Username</p>
           <input
-          type="text"
-          name="username"
-          id="user"
-          placeholder="Type Username"
-          ref={user}
-          pattern="[A-Za-z0-9_]{3,20}"
-          title="Username must be alphanumeric and between 3 to 20 characters"
-          required
-        />
+            type="text"
+            name="username"
+            id="user"
+            placeholder="Type Username"
+            ref={user}
+            pattern="[A-Za-z0-9_]{3,20}"
+            title="Username must be alphanumeric and between 3 to 20 characters"
+            required
+          />
         </div>
         <div className='input-container'>
           <p>Email ID</p>
           <input
-          type="email"
-          name="email"
-          id="email"
-          placeholder="Type Email ID"
-          ref={email}
-          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-          title="Enter a valid email address"
-          required
-        />
+            type="email"
+            name="email"
+            id="email"
+            placeholder="Type Email ID"
+            ref={email}
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+            title="Enter a valid email address"
+            required
+          />
         </div>
         <div className='input-container'>
           <p>Phone Number</p>
           <input
-          type="text"
-          name="phone"
-          id="phone"
-          placeholder="Type Phone"
-          ref={phone}
-          pattern="[0-9]{10}"
-          title="Phone number must be 10 digits"
-          required
-        />
+            type="text"
+            name="phone"
+            id="phone"
+            placeholder="Type Phone"
+            ref={phone}
+            pattern="[0-9]{10}"
+            title="Phone number must be 10 digits"
+            required
+          />
         </div>
         <div className='input-container'>
           <p>Gender</p>
@@ -295,7 +350,7 @@ export default function Login() {
           <select id="gender" ref={education} required>
             <option value="">Select Education</option>
             {
-              educationCategories.categories.map((item)=>(
+              educationCategories.categories.map((item) => (
                 <option value={item.name}>{item.name}</option>
               ))
             }

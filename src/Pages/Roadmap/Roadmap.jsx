@@ -35,9 +35,9 @@ function Roadmap() {
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log(localStorage.getItem('testId'))
+      console.log(loc.state)
       try {
-        const result = await axios.get(`http://127.0.0.1:8000/api/v1/generate-roadmap/${localStorage.getItem('testId')}/`,
+        const result = await axios.get(`http://127.0.0.1:8000/api/v1/generate-roadmap/${loc.state.testId}/`,
         {headers: {
           "Authorization": `Bearer ${localStorage.getItem('accessToken')}`,
           "Content-Type": "application/json",
@@ -84,11 +84,11 @@ function Roadmap() {
   const alreadyKnow = async (tag,isAlreadyKnow)=> {
     console.log("hello")
     setSelectedTopic(null)
-    const result = await axios.post(`http://127.0.0.1:8000/api/v1/mark-as-checked/`,
+    await axios.post(`http://127.0.0.1:8000/api/v1/mark-as-checked/`,
     {
-        testId: localStorage.getItem('testId'),
+        testId: loc.state.testId,
         tagName: tag,
-        isMarkedAsChecked: isReloadClicked ? false : true,
+        isMarkedAsChecked: true,
         isAlreadyKnow: true
     },
     {headers: {
@@ -127,15 +127,15 @@ function Roadmap() {
           <p
             onClick={()=>{
               setSelectedTopic({ tag,tagName, tagDisc, tagYoutube,isMarkedAsChecked,isAlreadyKnow });
-              setIsReloadClicked(false)
-              markAsComplete(tag,isAlreadyKnow,isReloadClicked)
+              setIsReloadClicked(true)
+              markAsComplete(tag,isAlreadyKnow,true)
             }}
           >🔁</p>
           ) : null
         }
         {/* <p>{isReloadClicked.toString()}</p>
         <p>{isMarkedAsChecked.toString()}</p> */}
-        <p>{tag}</p>
+        {/* <p>{tag}</p> */}
       </div>
     )
   }
@@ -238,7 +238,7 @@ function Roadmap() {
         </div>
       ) : (
         <div className='finish-container'>
-          <h1>Kazhinjille...Eni pokkoo...</h1>
+          <h1>Finishd!!</h1>
         </div>
       )
       }

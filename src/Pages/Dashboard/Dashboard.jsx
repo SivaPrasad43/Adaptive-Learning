@@ -120,7 +120,7 @@ function Dashboard() {
   
       const handleViewRoadmap = async ()=> {
         try {
-          navigate('/roadmap')
+          navigate("/roadmap",{state:{testId}});
         } catch (e) {
           console.log(e);
         }
@@ -134,14 +134,14 @@ function Dashboard() {
                       <h3>{subProf}</h3>
                   </div>
                   <CircularProgressBar
-                      selectedValue={subPerc}
+                      selectedValue={subPerc-4}
                       maxValue={100}
                       radius={30}
                       strokeWidth={6}
                       activeStrokeColor='rgb(22, 150, 99)'
                       backgroundColor='#161520'
                       textColor='white'
-                      valueFontSize={22}
+                      valueFontSize={18}
                   />
               </div>
               <div className="card_bottom_container">
@@ -168,10 +168,7 @@ function Dashboard() {
       <div className='dashboard_container'>
         <div className="profile_container">
               <h1>Hi {userName} 👋</h1>
-              <p>You've made remarkable progress on your journey. <br /> Stay on course, for you're on the right track! <br /><br />
-                Always remember that those who constantly challenge themselves are the ones who succeed.
-                Within you lies tremendous untapped potential. Unleash it, and witness the extraordinary feats
-                you can achieve.</p>
+              <p>You've made remarkable progress on your journey. <br /> Stay on course, for you're on the right track! <br /></p>
         </div>
         <div className="subject_container">
           <h2>Your Subjects</h2>
@@ -186,7 +183,7 @@ function Dashboard() {
               testId = {item.id}
               subName={item.subject}
               subProf={item.proficiency}
-              subPerc={item.percentage_of_completed}
+              subPerc={parseInt(item.percentage_of_completed)}
               fetchFunction={fetchData}
             />
           ))}

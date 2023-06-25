@@ -11,7 +11,7 @@ function Instructions() {
     const navigate = useNavigate()
 
     const bodyProps = {
-        subjectName : "HTML"
+        subjectName : "Python"
     }
 
     const handleStart = ()=> {

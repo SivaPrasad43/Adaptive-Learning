@@ -106,7 +106,7 @@ const QuestionBox = ({ data }) => {
   };
 
 
-  const handleSubmitClick = (e) => {
+  const handleSubmitClick = async (e) => {
     e.preventDefault();
     setAnsSelected(false)
 
@@ -120,8 +120,13 @@ const QuestionBox = ({ data }) => {
     };
 
     try {
-      const result = ApiGateway.post('/api/v1/submit-answer/', answeredQuestion)
-      result.then(({ data }) => {
+      // const result = ApiGateway.post('/api/v1/submit-answer/', answeredQuestion)
+      await axios.post("http://127.0.0.1:8000/api/v1/submit-answer/",answeredQuestion,
+      {headers: {
+        "Authorization": `Bearer ${localStorage.getItem('accessToken')}`,
+        "Content-Type": "application/json",
+      }})
+      .then(({ data }) => {
         console.log(data)
         // setData(data.response)
       })

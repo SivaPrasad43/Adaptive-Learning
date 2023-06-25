@@ -44,6 +44,7 @@ function Navbar({ logoutStatus, subShow, DashboardShow }) {
   const handleLogout = () => {
     localStorage.removeItem('accessToken')
     localStorage.removeItem('user')
+    localStorage.removeItem('testId')
     navigate("/")
   }
 
@@ -63,10 +64,13 @@ function Navbar({ logoutStatus, subShow, DashboardShow }) {
           subShow ? <Subject /> : null
         }
         <div className="logout-container">
-          <div
-            className="logout-btn"
-            onClick={() => handleLogout()}
-          >Logout</div>
+          {
+            logoutStatus && (          
+            <div
+              className="logout-btn"
+              onClick={() => handleLogout()}
+            >Logout</div>)
+          }
           {
             DashboardShow ? (
               <div
