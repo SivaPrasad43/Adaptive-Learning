@@ -134,7 +134,7 @@ function Dashboard() {
                       <h3>{subProf}</h3>
                   </div>
                   <CircularProgressBar
-                      selectedValue={subPerc-4}
+                      selectedValue={subPerc}
                       maxValue={100}
                       radius={30}
                       strokeWidth={6}
