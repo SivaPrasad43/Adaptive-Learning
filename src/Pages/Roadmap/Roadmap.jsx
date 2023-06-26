@@ -64,13 +64,13 @@ const TopicItem = (
   )
 }
 
-const ChatBox = ({ askDoubtShow, setBotDataLoaded,loadingStepTwo,setLoadingStepTwo}) => {
+const ChatBox = ({ askDoubtShow, setBotDataLoaded,loadingStepTwo,setLoadingStepTwo,topic}) => {
   const [loadingIntro, setLoadingIntro] = useState(false);
   const [loadingDoubt, setLoadingDoubt] = useState(false);
   const [result, setResult] = useState('');
   const [newPreviousValue, setNewPreviousValue] = useState('');
 
-  const doubtRef = useRef('Ok..Tell me Whta is your doubt?');
+  const doubtRef = useRef('Ok..Tell me What is your doubt?');
   const [doubtData, setDoubtData] = useState('nothing');
   const introDialogueRef = useRef('hello');
 
@@ -78,13 +78,13 @@ const ChatBox = ({ askDoubtShow, setBotDataLoaded,loadingStepTwo,setLoadingStepT
     setLoadingIntro(true);
     try {
       const configuration = new Configuration({
-        organization: 'org-AfS54ICvYam62MCcEAn1HCgS',
-        apiKey: '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',
+        organization: 'org-SWyQxC45DKHtz1ulhiNHaf78',
+        apiKey: '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',
       });
       const openai = new OpenAIApi(configuration);
       const response = await openai.createCompletion({
         model: 'text-davinci-003',
-        prompt: `You are a Python Tutor and your student asked a doubt that student:hi\n You:`,
+        prompt: `You are a Python Tutor and your student asked a doubt in ${topic} student:hi\n You:`,
         temperature: 0,
         max_tokens: 150,
         top_p: 1.0,
@@ -92,7 +92,7 @@ const ChatBox = ({ askDoubtShow, setBotDataLoaded,loadingStepTwo,setLoadingStepT
         presence_penalty: 0.0,
         stop: ['You:'],
       });
-
+      console.log(response)
       introDialogueRef.current = response.data.choices[0].text;
       localStorage.setItem('introDialog', response.data.choices[0].text);
     } catch (error) {
@@ -111,8 +111,8 @@ const ChatBox = ({ askDoubtShow, setBotDataLoaded,loadingStepTwo,setLoadingStepT
 
     try {
       const configuration = new Configuration({
-        organization: 'org-AfS54ICvYam62MCcEAn1HCgS',
-        apiKey: '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',
+        organization: 'org-SWyQxC45DKHtz1ulhiNHaf78',
+        apiKey: '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',
       });
       const openai = new OpenAIApi(configuration);
       const response = await openai.createCompletion({
@@ -126,7 +126,7 @@ const ChatBox = ({ askDoubtShow, setBotDataLoaded,loadingStepTwo,setLoadingStepT
         stop: ['You:'],
       });
 
-      doubtRef.current = response.data.choices[0].text;
+      introDialogueRef.current = response.data.choices[0].text;
       setDoubtData(response.data.choices[0].text);
       localStorage.setItem('doubtData', response.data.choices[0].text);
     } catch (error) {
@@ -138,7 +138,7 @@ const ChatBox = ({ askDoubtShow, setBotDataLoaded,loadingStepTwo,setLoadingStepT
 
   const handleStepTwo = ({ steps, triggerNextStep }) => {
     setLoadingStepTwo(true);
-    setLoadingIntro(true);
+    // setLoadingIntro(true);
     setNewPreviousValue(steps[2].message);
     const doubtValue = steps[2].message;
 
@@ -153,13 +153,14 @@ const ChatBox = ({ askDoubtShow, setBotDataLoaded,loadingStepTwo,setLoadingStepT
       throw err;
     }
   };
+  
 
   return (
     <div className="chat_container">
       {
         console.log(loadingIntro,loadingStepTwo)
       }
-      {loadingIntro && loadingStepTwo ? (
+      {loadingIntro || loadingStepTwo ? (
         <div>Loading...</div>
       ) : (
             <ChatBot
@@ -169,9 +170,9 @@ const ChatBox = ({ askDoubtShow, setBotDataLoaded,loadingStepTwo,setLoadingStepT
           steps={[
             {
               id: '1',
-              message:  loadingStepTwo ? introDialogueRef.current :doubtRef.current ,
+              message: introDialogueRef.current ,
               trigger: '2',
-            },
+            },  
             {
               id: '2',
               user: true,
@@ -203,7 +204,7 @@ const SelectedBox = (
     setBotDataLoaded
   }
 ) => {
-  const [loadingStepTwo, setLoadingStepTwo] = useState(true);
+  const [loadingStepTwo, setLoadingStepTwo] = useState(false);
   return(
     <div className='disc'>
     <div className='disc-item'>
@@ -256,6 +257,7 @@ const SelectedBox = (
           setBotDataLoaded={setBotDataLoaded}
           loadingStepTwo={loadingStepTwo}
           setLoadingStepTwo={setLoadingStepTwo}
+          topic={selectedTopic.tagName}
            />
         )}
       </>
