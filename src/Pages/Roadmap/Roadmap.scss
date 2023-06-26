@@ -118,6 +118,33 @@
             cursor: pointer;
             box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
         }
+        .doubt-btn{
+            width: max-content;
+            padding: 12px 20px;
+            color: rgb(255, 255, 255);
+            border: 2px solid rgba(161, 103, 254, 0.662);
+            background-color: rgba(142, 82, 239, 0.662);
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px; 
+        }
+    }
+}
+
+.chat_container{
+    position: fixed;
+    bottom: 100px;
+    right: 30px;
+    z-index: 10;
+    color: black;
+    .rsc{
+        .rsc-container{
+            .rsc-footer{
+                input{
+                    color: black !important;
+                }
+            }
+        }
     }
 }
 

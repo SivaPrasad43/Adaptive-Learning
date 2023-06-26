@@ -341,7 +341,7 @@ export default function Login() {
             <option value="">Select Age</option>
             <option value="young">12-22</option>
             <option value="middle">23-40</option>
-            <option value="old">40-60</option>
+            <option value="old">41-60</option>
             <option value="very_old">60+</option>
           </select>
         </div>
